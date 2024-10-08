@@ -45,15 +45,15 @@ class CityController extends Controller
         $city = City::query()->create($request->validated());
 
         if ($request->has('translations')) {
-            foreach ($request->input('translations') as $translation) {
+            foreach ($request->input('translations') as $key => $value) {
                 $city->translations()->create([
-                    'title' => $translation['title'],
-                    'locale' => $translation['locale'], // Adjust this based on your translation model
+                    'title' => $value,
+                    'locale' => $key, // Adjust this based on your translation model
                 ]);
             }
         }
 
-        return response()->json($city,201);
+        return response()->json($city->id,201);
     }
 
     /**
@@ -61,7 +61,11 @@ class CityController extends Controller
      */
     public function show(string $id): JsonResponse
     {
-        $city = City::query()->with('translations')->findOrFail($id);
+        try {
+            $city = City::findOrFail($id);
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'City not found'], 404);
+        }
         return response()->json($city,200);
     }
 
@@ -99,7 +103,12 @@ class CityController extends Controller
      */
     public function destroy(string $id): JsonResponse
     {
-        $city = City::query()->findOrFail($id);
+        try {
+            $city = City::findOrFail($id);
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'City not found'], 404);
+        }
+
         $city->delete();
 
         return response()->json(null, 204);

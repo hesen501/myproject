@@ -2,12 +2,14 @@
 
 namespace App\Models;
 
+use App\Http\Controllers\Admin\CityController;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
- * 
+ *
  *
  * @property int $id
  * @property string $slug
@@ -36,6 +38,19 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Region extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'slug',
+        'city_id',
+        'distance',
+        'zip_code',
+        'delivery_cost'
+    ];
+
+    public function translations(): HasMany
+    {
+        return $this->hasMany(RegionTranslation::class);
+    }
 
     public function city(): BelongsTo
     {
