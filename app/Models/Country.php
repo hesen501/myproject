@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * 
+ *
  *
  * @property int $id
  * @property string $title
@@ -46,6 +46,6 @@ class Country extends Model
         'weight_id',
         'length_id',
         'commission',
-        'status'
+        'status',
     ];
 }

@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('address');
             $table->string('phone');
             $table->string('working_hours');
-            $table->string('google_iframe');
+            $table->string('google_iframe')->nullable();
             $table->timestamps();
         });
     }

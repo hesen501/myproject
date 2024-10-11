@@ -44,7 +44,8 @@ class Region extends Model
         'city_id',
         'distance',
         'zip_code',
-        'delivery_cost'
+        'delivery_cost',
+        'currency_id'
     ];
 
     public function translations(): HasMany

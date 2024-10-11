@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Admin\Region;
+namespace App\Http\Requests\Admin\Branch;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -22,14 +22,13 @@ class StoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'slug' => 'required|unique:cities|max:50',
-            'city_id' => 'required|exists:cities,id',
-            'distance' => 'required|numeric|min:0',
-            'zip_code' => 'required',
-            'delivery_cost' => 'required|numeric|min:0',
-            'translations' => 'required|array',
-            'translations.en' => 'required',
-            'currency_id' => 'required'
+            'title' => 'required|string|max:255',
+            'address' => 'required|string|max:500',
+            'phone' => 'required|string',
+            'working_hours' => 'required|string|max:255', // You can adjust this depending on the format
+            'google_iframe' => 'nullable|url', // Nullable and must be a valid URL if provided
         ];
     }
+
+
 }

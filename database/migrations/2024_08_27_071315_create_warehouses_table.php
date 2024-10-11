@@ -20,17 +20,6 @@ return new class extends Migration
             $table->string('phone');
             $table->string('address');
             $table->string('tc_identity');
-            $table->integer('flights_weekly');
-            $table->string('default_website');
-            $table->float('weight_limit');
-            $table->string('currency_id');
-            $table->integer('print_label');
-            $table->integer('parcelling');
-            $table->integer('auto_print');
-            $table->integer('packaging');
-            $table->string('fake_invoice');
-            $table->integer('show_label');
-            $table->integer('show_invoice');
             $table->string('neighborhood');
             $table->timestamps();
         });
