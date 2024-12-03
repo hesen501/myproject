@@ -6,6 +6,10 @@ use App\Models\Branch;
 
 class BranchRepository
 {
+    /**
+     * @param array $filters
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
+     */
     public function getAllBranches(array $filters = [])
     {
         $query = Branch::query();
@@ -21,22 +25,39 @@ class BranchRepository
         return $query->paginate(10);
     }
 
+    /**
+     * @param string $id
+     * @return Branch|null
+     */
     public function findBranchById(string $id): ?Branch
     {
         return Branch::find($id);
     }
 
+    /**
+     * @param array $data
+     * @return Branch
+     */
     public function createBranch(array $data): Branch
     {
         return Branch::create($data);
     }
 
+    /**
+     * @param Branch $branch
+     * @param array $data
+     * @return Branch
+     */
     public function updateBranch(Branch $branch, array $data): Branch
     {
         $branch->update($data);
         return $branch;
     }
 
+    /**
+     * @param Branch $branch
+     * @return void
+     */
     public function deleteBranch(Branch $branch): void
     {
         $branch->delete();

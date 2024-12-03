@@ -6,6 +6,10 @@ use App\Models\City;
 
 class CityRepository
 {
+    /**
+     * @param array $filters
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
+     */
     public function getAllCities(array $filters = [])
     {
         $query = City::query()->with(['translations' => function($query) {
@@ -25,6 +29,10 @@ class CityRepository
         return $query->paginate(10);
     }
 
+    /**
+     * @param string $id
+     * @return City|null
+     */
     public function findCityById(string $id): ?City
     {
         return City::with(['translations' => function($query) {
@@ -37,12 +45,21 @@ class CityRepository
         return City::query()->create($data);
     }
 
+    /**
+     * @param City $city
+     * @param array $data
+     * @return City
+     */
     public function updateCity(City $city, array $data): City
     {
         $city->update($data);
         return $city;
     }
 
+    /**
+     * @param City $city
+     * @return void
+     */
     public function deleteCity(City $city): void
     {
         $city->delete();

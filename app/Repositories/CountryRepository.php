@@ -21,22 +21,39 @@ class CountryRepository
         return $query->paginate(10);
     }
 
+    /**
+     * @param string $id
+     * @return Country|null
+     */
     public function findCountryById(string $id): ?Country
     {
         return Country::query()->find($id);
     }
 
+    /**
+     * @param array $data
+     * @return Country
+     */
     public function createCountry(array $data): Country
     {
         return Country::query()->create($data);
     }
 
+    /**
+     * @param Country $country
+     * @param array $data
+     * @return Country
+     */
     public function updateCountry(Country $country, array $data): Country
     {
         $country->update($data);
         return $country;
     }
 
+    /**
+     * @param Country $country
+     * @return void
+     */
     public function deleteCountry(Country $country): void
     {
         $country->delete();

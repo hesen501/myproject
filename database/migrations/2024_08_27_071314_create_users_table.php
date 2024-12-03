@@ -13,13 +13,30 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('firstname');
+            $table->string('lastname');
+            $table->string('customer_code')->nullable()->unique();  // nullable for moderators
             $table->string('email')->unique();
+            $table->string('serial_number')->nullable()->unique();  // nullable for moderators
+            $table->string('sv_number')->nullable();  // nullable for moderators
+            $table->string('fin_code')->nullable();  // nullable for moderators
+            $table->string('dial_code')->nullable();
+            $table->string('phone')->nullable();
+            $table->string('address')->nullable();
+            $table->foreignId('city_id')->nullable()->constrained()->onDelete('set null');
             $table->timestamp('email_verified_at')->nullable();
+            $table->float('delivery_balance')->default(0);
+            $table->float('order_balance')->default(0);
+            $table->string('monthly_limit')->nullable()->default(0);
+            $table->enum('delivery_type', ['branch', 'courier', 'azerpost', 'newpost'])->nullable();
+            $table->foreignId('branch_id')->nullable()->constrained()->onDelete('set null');
             $table->string('password');
+            $table->enum('status', [0, 1])->default(1);
+            $table->enum('type', ['user', 'moderator','worker'])->default('user');  // adding type column
             $table->rememberToken();
             $table->timestamps();
         });
+
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {
             $table->string('email')->primary();

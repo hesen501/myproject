@@ -20,7 +20,6 @@ return new class extends Migration
             $table->string('currency_id');
             $table->integer('quantity');
             $table->string('description');
-            $table->string('invoice_file');
             $table->foreignId('user_id')->constrained();
             $table->foreignId('shelf_id')->nullable();
             $table->string('store');
@@ -28,7 +27,7 @@ return new class extends Migration
             $table->integer('has_battery');
             $table->integer('print');
             $table->integer('status');
-            $table->integer('waiting_declare_date');
+            $table->integer('waiting_declare_date')->nullable();
             $table->enum('type',['home','abroad']);
             $table->foreignId('parcel_id')->nullable()->constrained()->onDelete('cascade');
             $table->float('delivery_cost');
@@ -36,7 +35,7 @@ return new class extends Migration
             $table->foreignId('warehouse_id')->constrained()->onDelete('cascade');
             $table->enum('delivery_type',['branch','courier','azerpost','newpost']);
             $table->string('delivery');
-            $table->integer('delivery_paid');
+            $table->integer('delivery_paid')->default(0);
             $table->timestamps();
         });
     }

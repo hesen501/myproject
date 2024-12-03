@@ -7,6 +7,11 @@ use App\Models\Region;
 class RegionRepository
 {
 
+    /**
+     *
+     * @param $filters
+     * @return \Illuminate\Pagination\LengthAwarePaginator
+     */
     public function getRegionsWithRelations($filters = []): \Illuminate\Pagination\LengthAwarePaginator
     {
         $query = Region::query()->with([
@@ -34,27 +39,50 @@ class RegionRepository
 
         return $query->paginate(10);
     }
+
+    /**
+     * @param array $data
+     * @return Region
+     */
     public function create(array $data): Region
     {
         return Region::query()->create($data);
     }
 
+    /**
+     * @param Region $region
+     * @param array $data
+     * @return Region
+     */
     public function update(Region $region, array $data): Region
     {
         $region->update($data);
         return $region;
     }
 
+    /**
+     * @param string $id
+     * @return Region|null
+     */
     public function findById(string $id): ?Region
     {
         return Region::with('translations')->find($id);
     }
 
+    /**
+     * @param Region $region
+     * @return void
+     */
     public function delete(Region $region): void
     {
         $region->delete();
     }
 
+    /**
+     * @param Region $region
+     * @param array $translations
+     * @return void
+     */
     public function saveTranslations(Region $region, array $translations): void
     {
         foreach ($translations as $key => $value) {
