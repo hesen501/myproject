@@ -18,6 +18,7 @@ Route::post('login' ,[LoginController::class,'login']);
 Route::apiResource('cities' ,CityController::class);
 Route::apiResource('regions' ,RegionController::class);
 Route::apiResource('branches' ,BranchController::class);
+Route::put('branches/addworker' ,BranchController::class);
 Route::apiResource('countries' ,CountryController::class);
 Route::apiResource('warehouses' ,WarehouseController::class);
 Route::apiResource('parcels' ,ParcelController::class);

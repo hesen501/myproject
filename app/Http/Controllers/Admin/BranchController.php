@@ -86,4 +86,21 @@ class BranchController extends Controller
             return response()->json(['message' => 'An error occurred while deleting the branch'], 500);
         }
     }
+
+    /**
+     * @param string $id
+     * @return JsonResponse
+     * Add worker to branch
+     */
+    public function addworker(string $id): JsonResponse
+    {
+        try {
+            $this->branchService->deleteBranch($id);
+            return response()->json(['message' => 'Branch deleted successfully'], 204);
+        } catch (ModelNotFoundException $e) {
+            return response()->json(['message' => 'Branch not found'], 404);
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'An error occurred while deleting the branch'], 500);
+        }
+    }
 }
