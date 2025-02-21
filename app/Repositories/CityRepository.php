@@ -3,14 +3,16 @@
 namespace App\Repositories;
 
 use App\Models\City;
+use App\Repositories\Interfaces\CityRepositoryInterface;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
-class CityRepository
+class CityRepository implements CityRepositoryInterface
 {
     /**
      * @param array $filters
-     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
+     * @return LengthAwarePaginator
      */
-    public function getAllCities(array $filters = [])
+    public function getAllCities(array $filters = []): LengthAwarePaginator
     {
         $query = City::query()->with(['translations' => function($query) {
             $query->select('city_id', 'locale', 'title'); // Specify the translation columns
@@ -37,7 +39,7 @@ class CityRepository
     {
         return City::with(['translations' => function($query) {
             $query->select('city_id', 'locale', 'title'); // Specify the translation columns
-        }])->find($id);
+        }])->findOrFail($id);
     }
 
     public function createCity(array $data): City

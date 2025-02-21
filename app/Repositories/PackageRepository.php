@@ -3,14 +3,16 @@
 namespace App\Repositories;
 
 use App\Models\Package;
+use App\Repositories\Interfaces\PackageRepositoryInterface;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
-class PackageRepository
+class PackageRepository implements PackageRepositoryInterface
 {
     /**
      * @param array $filters
-     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
+     * @return LengthAwarePaginator
      */
-    public function getAllPackages(array $filters = [])
+    public function getAllPackages(array $filters = []): LengthAwarePaginator
     {
         $packages = Package::query()->with([
             'warehouse' => function ($query) {
@@ -32,7 +34,7 @@ class PackageRepository
     {
         return Package::query()->with([
             'user'
-        ])->find($id);
+        ])->findOrFail($id);
     }
 
     /**

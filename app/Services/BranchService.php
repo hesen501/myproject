@@ -23,9 +23,6 @@ class BranchService
     public function updateBranch(string $id, array $data): Branch
     {
         $branch = $this->branchRepository->findBranchById($id);
-        if (!$branch) {
-            throw new ModelNotFoundException('Branch not found');
-        }
 
         return $this->branchRepository->updateBranch($branch, $data);
     }
@@ -33,9 +30,6 @@ class BranchService
     public function deleteBranch(string $id): void
     {
         $branch = $this->branchRepository->findBranchById($id);
-        if (!$branch) {
-            throw new ModelNotFoundException('Branch not found');
-        }
 
         $this->branchRepository->deleteBranch($branch);
     }

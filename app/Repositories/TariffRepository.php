@@ -3,14 +3,16 @@
 namespace App\Repositories;
 
 use App\Models\Tariff;
+use App\Repositories\Interfaces\TariffRepositoryInterface;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
-class TariffRepository
+class TariffRepository implements TariffRepositoryInterface
 {
     /**
      * @param array $filters
-     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
+     * @return LengthAwarePaginator
      */
-    public function getAllTariffs(array $filters = [])
+    public function getAllTariffs(array $filters = []): LengthAwarePaginator
     {
         $tariffs = Tariff::query()->with([
             'country' => function ($query) {
@@ -31,8 +33,7 @@ class TariffRepository
             'country' => function ($query) {
                 $query->select('id','title');
             },
-
-        ])->find($id);
+        ])->findOrFail($id);
     }
 
     /**

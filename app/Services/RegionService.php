@@ -15,7 +15,8 @@ class RegionService
         $this->regionRepository = $regionRepository;
     }
 
-    public function getRegions($filters = []){
+    public function getRegions($filters = []): \Illuminate\Pagination\LengthAwarePaginator
+    {
         $regions = $this->regionRepository->getRegionsWithRelations($filters);
 
         foreach ($regions as $region){

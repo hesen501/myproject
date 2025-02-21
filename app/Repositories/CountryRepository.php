@@ -3,10 +3,16 @@
 namespace App\Repositories;
 
 use App\Models\Country;
+use App\Repositories\Interfaces\CountryRepositoryInterface;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
-class CountryRepository
+class CountryRepository implements CountryRepositoryInterface
 {
-    public function getAllCountries($filters = [])
+    /**
+     * @param $filters
+     * @return LengthAwarePaginator
+     */
+    public function getAllCountries($filters = []): LengthAwarePaginator
     {
         $query = Country::query();
 
@@ -27,7 +33,7 @@ class CountryRepository
      */
     public function findCountryById(string $id): ?Country
     {
-        return Country::query()->find($id);
+        return Country::query()->findOrFail($id);
     }
 
     /**

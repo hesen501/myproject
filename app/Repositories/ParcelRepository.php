@@ -3,14 +3,16 @@
 namespace App\Repositories;
 
 use App\Models\Parcel;
+use App\Repositories\Interfaces\ParcelRepositoryInterface;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
-class ParcelRepository
+class ParcelRepository implements ParcelRepositoryInterface
 {
     /**
      * @param array $filters
-     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
+     * @return LengthAwarePaginator
      */
-    public function getAllParcels(array $filters = [])
+    public function getAllParcels(array $filters = []): LengthAwarePaginator
     {
         $parcels = Parcel::query()->with([
             'warehouse' => function ($query) {
@@ -37,7 +39,7 @@ class ParcelRepository
             'branch' => function ($query) {
                 $query->select('id','title');
             },
-        ])->find($id);
+        ])->findOrFail($id);
     }
 
     /**

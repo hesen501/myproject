@@ -3,16 +3,18 @@
 namespace App\Repositories;
 
 use App\Models\Warehouse;
+use App\Repositories\Interfaces\WarehouseRepositoryInterface;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
-class WarehouseRepository
+class WarehouseRepository implements WarehouseRepositoryInterface
 {
     /**
      * Retrieve all warehouses with relations.
      *
-     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
+     * @return LengthAwarePaginator
      */
-    public function getAllWarehousesWithRelations()
+    public function getAllWarehousesWithRelations(): LengthAwarePaginator
     {
         return Warehouse::query()->with([
             'city.translations' => function ($query) {
@@ -94,6 +96,6 @@ class WarehouseRepository
             'country' => function ($query) {
                 $query->select('id','title');
             },
-        ])->find($id);
+        ])->findOrFail($id);
     }
 }

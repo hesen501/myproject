@@ -3,16 +3,18 @@
 namespace App\Repositories;
 
 use App\Models\Region;
+use App\Repositories\Interfaces\RegionRepositoryInterface;
+use Illuminate\Pagination\LengthAwarePaginator;
 
-class RegionRepository
+class RegionRepository implements RegionRepositoryInterface
 {
 
     /**
      *
-     * @param $filters
-     * @return \Illuminate\Pagination\LengthAwarePaginator
+     * @param array $filters
+     * @return LengthAwarePaginator
      */
-    public function getRegionsWithRelations($filters = []): \Illuminate\Pagination\LengthAwarePaginator
+    public function getRegionsWithRelations(array $filters = []): LengthAwarePaginator
     {
         $query = Region::query()->with([
             'translations' => function($query) {
@@ -66,7 +68,7 @@ class RegionRepository
      */
     public function findById(string $id): ?Region
     {
-        return Region::with('translations')->find($id);
+        return Region::with('translations')->findOrFail($id);
     }
 
     /**

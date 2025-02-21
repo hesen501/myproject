@@ -3,14 +3,16 @@
 namespace App\Repositories;
 
 use App\Models\Branch;
+use App\Repositories\Interfaces\BranchRepositoryInterface;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
-class BranchRepository
+class BranchRepository implements BranchRepositoryInterface
 {
     /**
      * @param array $filters
-     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
+     * @return LengthAwarePaginator
      */
-    public function getAllBranches(array $filters = [])
+    public function getAllBranches(array $filters = []): LengthAwarePaginator
     {
         $query = Branch::query();
 
@@ -31,7 +33,7 @@ class BranchRepository
      */
     public function findBranchById(string $id): ?Branch
     {
-        return Branch::find($id);
+        return Branch::findOrFail($id);
     }
 
     /**
