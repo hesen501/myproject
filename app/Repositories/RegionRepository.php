@@ -88,6 +88,8 @@ class RegionRepository implements RegionRepositoryInterface
     public function saveTranslations(Region $region, array $translations): void
     {
         foreach ($translations as $key => $value) {
+            if (!$value)
+                continue;
             $region->translations()->updateOrCreate(
                 ['locale' => $key],
                 ['title' => $value]

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\BranchController;
+use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CityController;
 use App\Http\Controllers\Admin\CountryController;
 use App\Http\Controllers\Admin\PackageController;
@@ -24,4 +25,5 @@ Route::apiResource('warehouses' ,WarehouseController::class);
 Route::apiResource('parcels' ,ParcelController::class);
 Route::apiResource('packages' ,PackageController::class);
 Route::apiResource('tariffs' ,TariffController::class);
+Route::apiResource('categories' ,CategoryController::class);
 //});

@@ -1,12 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Admin\City;
+namespace App\Http\Requests\Admin\Category;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Validation\Rule;
 
-class UpdateRequest extends FormRequest
+class StoreRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,14 +22,10 @@ class UpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'slug' => [
-                'required',
-                'max:50',
-                Rule::unique('cities')->ignore($this->route('city'))
-            ],
-            'delivery_status' => 'required|in:0,1',
+            'slug' => 'required|unique:cities|max:50',
+            'parent_id' => 'exists:categories,id',
             'translations' => 'required|array',
+            'translations.en' => 'required',
         ];
     }
-
 }

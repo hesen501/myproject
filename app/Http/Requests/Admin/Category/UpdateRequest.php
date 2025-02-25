@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Admin\City;
+namespace App\Http\Requests\Admin\Category;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Validator;
@@ -29,7 +29,7 @@ class UpdateRequest extends FormRequest
                 'max:50',
                 Rule::unique('cities')->ignore($this->route('city'))
             ],
-            'delivery_status' => 'required|in:0,1',
+            'parent_id' => 'exists:categories,id',
             'translations' => 'required|array',
         ];
     }

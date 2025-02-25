@@ -65,6 +65,9 @@ class CityController extends Controller
      */
     public function update(UpdateRequest $request, string $id): JsonResponse
     {
+        if (!$request['translations']['en'] ){
+            return response()->json(['message' => 'Translation EN Empty'], 404);
+        }
         try {
             $city = $this->cityService->updateCity($id, $request->validated());
             return response()->json($city);

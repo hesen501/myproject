@@ -17,11 +17,14 @@ class CityService
     public function createCity(array $data): City
     {
         $city = $this->cityRepository->createCity($data);
-        $this->saveTranslations($city, $data['translations'] ?? []);
+        $this->cityRepository->saveTranslations($city, $data['translations'] ?? []);
 
         return $city;
     }
 
+    /**
+     * @throws \Exception
+     */
     public function updateCity(string $id, array $data): City
     {
         $city = $this->cityRepository->findCityById($id);
@@ -30,9 +33,9 @@ class CityService
         }
 
         $this->cityRepository->updateCity($city, $data);
-        $this->saveTranslations($city, $data['translations'] ?? []);
+        $this->cityRepository->saveTranslations($city, $data['translations'] ?? []);
 
-        return $city;
+        return $this->cityRepository->findCityById($id);
     }
 
     public function deleteCity(string $id): void
@@ -56,7 +59,6 @@ class CityService
             }
         }
 
-
         return $city;
     }
 
@@ -70,15 +72,5 @@ class CityService
         }
 
         return $cities;
-    }
-
-    private function saveTranslations(City $city, array $translations): void
-    {
-        foreach ($translations as $locale => $title) {
-            $city->translations()->updateOrCreate(
-                ['locale' => $locale],
-                ['title' => $title]
-            );
-        }
     }
 }

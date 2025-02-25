@@ -11,6 +11,7 @@ class Warehouse extends Model
 {
     use HasFactory;
 
+    public mixed $id;
     protected $fillable = [
         'title',
         'country_id',
